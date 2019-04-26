@@ -33,6 +33,20 @@ router.get('/', async (req, res) => {
     }
   });
 
+   //  Get request for project's actions by id --> /:id
+  router.get('/:id', async (req, res) => {
+    const projectId = request.params.projectId;
+    try {
+      const actionsProject = await projectsDB.getProjectActions(projectId);
+      response.status(200).json(actionsProject);
+    } catch (error) {
+      response.status(500).json({
+        error: 'Could not retrieve the actions from the project in database.'
+      });
+    }
+  });
+  
+
   // Post request to add new project --> /
   router.post('/', async (req, res) => {
     const newProject = req.body

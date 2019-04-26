@@ -31,3 +31,15 @@ h1 {
 h2 {
   background: rgba(0, 0, 255, 0.63)
 }
+
+span {
+  padding-right: 1rem;
+}
+
+.fa-check {
+  color: yellowgreen;
+}
+
+.fa-times {
+  color: firebrick;
+}
