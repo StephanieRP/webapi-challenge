@@ -18,13 +18,13 @@ router.get('/', async (req, res) => {
     }
   });
 
-   //  Get request for posts by id --> /:id
+   //  Get request for project by id --> /:id
    router.get('/:id', async (req, res) => {
     try {
       const projectID = await projectsDB.get(req.params.id);
 
       projectID ? res.status(200).json(projectID) : res.status(404).json({ message: "The projects with the specified ID does not exist." })
-        console.log(projectID)
+        // console.log(projectID)
     } catch (error) {
       // log error to database
       res.status(500).json({
@@ -33,12 +33,13 @@ router.get('/', async (req, res) => {
     }
   });
 
-  // Post request to add new posts --> /
+  // Post request to add new project --> /
   router.post('/', async (req, res) => {
+    const newProject = req.body
         try {
-            const newUser = await projectsDB.insert(req.body);
-            res.status(201).json(newUser)
-            console.log(req.body)
+            const project= await projectsDB.insert(newProject);
+            res.status(201).json(project)
+            console.log(newProject)
           } catch (error) {
             // log error to database
             res.status(500).json({
@@ -48,7 +49,7 @@ router.get('/', async (req, res) => {
   });
 
 
-  // Delete request to delete posts --> /:id
+  // Delete request to delete project --> /:id
   router.delete('/:id', async (req, res) => {
     try {
       const project = await projectsDB.remove(req.params.id);
@@ -63,7 +64,7 @@ router.get('/', async (req, res) => {
   })
 
 
-  // Put request to edit posts --> /:id
+  // Put request to edit project --> /:id
   router.put('/:id', async (req, res) => {
     try {
       const { id } = req.params
