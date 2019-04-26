@@ -35,10 +35,11 @@ router.get('/', async (req, res) => {
 
    //  Get request for project's actions by id --> /:id
   router.get('/:id', async (req, res) => {
-    const projectId = request.params.projectId;
+    const projectId = req.params.project_id;
     try {
       const actionsProject = await projectsDB.getProjectActions(projectId);
-      response.status(200).json(actionsProject);
+
+      projectId.length !== 0 ? response.status(200).json(actionsProject) : res.status(404).json({ message: "The project's action with the specified user ID does not exist." })
     } catch (error) {
       response.status(500).json({
         error: 'Could not retrieve the actions from the project in database.'
